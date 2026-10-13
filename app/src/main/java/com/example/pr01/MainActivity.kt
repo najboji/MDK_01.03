@@ -18,8 +18,8 @@ class MainActivity : ComponentActivity() {
 
 //        Практическая 14
 
-//        val productViewModel: ProductViewModel by viewModels()
-//        productViewModel.fetchProducts()
+        val productViewModel: ProductViewModel by viewModels()
+        productViewModel.fetchProducts()
 
 //        Практическая 15
 
@@ -44,17 +44,17 @@ class MainActivity : ComponentActivity() {
 
 //          Практическая 16
 
-        val viewModel = UserViewModel()
-        val userForEdit = User(
-            id = 15,
-            firstName = "Ирина",
-            lastName = "Воронова",
-            age = 29,
-            hair = Hair(
-                color = "темные",
-                type = "кудрявые"
-            )
-        )
-        viewModel.editUser(userForEdit)
+//        val viewModel = UserViewModel()
+//        val userForEdit = User(
+//            id = 15,
+//            firstName = "Ирина",
+//            lastName = "Воронова",
+//            age = 29,
+//            hair = Hair(
+//                color = "темные",
+//                type = "кудрявые"
+//            )
+//        )
+//        viewModel.editUser(userForEdit)
     }
 }

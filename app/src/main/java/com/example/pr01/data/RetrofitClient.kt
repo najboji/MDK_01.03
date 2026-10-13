@@ -17,7 +17,7 @@ object RetrofitClient {
         .proxy(proxy)
         .build()
 
-    val retrofit: Retrofit = Retrofit.Builder()
+    private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl("https://dummyjson.com/")
         .client(httpClient)
         .addConverterFactory(GsonConverterFactory.create())
