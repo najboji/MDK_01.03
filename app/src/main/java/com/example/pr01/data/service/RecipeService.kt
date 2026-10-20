@@ -9,5 +9,5 @@ import retrofit2.http.POST
 
 interface RecipeService {
     @POST("recipes/add")
-    suspend fun addRecipe(@Body recipe: Recipe): RecipeResponse
+    suspend fun addRecipe(@Body recipe: Recipe): Recipe
 }

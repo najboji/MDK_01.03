@@ -7,6 +7,7 @@ import com.example.pr01.data.model.Hair
 import com.example.pr01.data.model.Recipe
 import com.example.pr01.data.model.RecipeResponse
 import com.example.pr01.data.model.User
+import com.example.pr01.ui.viewModel.PostViewModel
 import com.example.pr01.ui.viewModel.ProductViewModel
 import com.example.pr01.ui.viewModel.RecipeViewModel
 import com.example.pr01.ui.viewModel.UserViewModel
@@ -18,8 +19,8 @@ class MainActivity : ComponentActivity() {
 
 //        Практическая 14
 
-        val productViewModel: ProductViewModel by viewModels()
-        productViewModel.fetchProducts()
+//        val productViewModel: ProductViewModel by viewModels()
+//        productViewModel.fetchProducts()
 
 //        Практическая 15
 
@@ -56,5 +57,11 @@ class MainActivity : ComponentActivity() {
 //            )
 //        )
 //        viewModel.editUser(userForEdit)
+
+//        Практическая 17
+
+//        val postViewModel: PostViewModel by viewModels()
+//        val postIdToDelete = 30
+//        postViewModel.deletePost(postIdToDelete)
     }
 }
