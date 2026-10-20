@@ -6,5 +6,5 @@ import retrofit2.http.Path
 
 interface PostService {
     @DELETE("posts/{id}")
-    suspend fun deletePost(@Path("id") id: Int)
+    suspend fun deletePost(@Path("id") id: Int): Post
 }

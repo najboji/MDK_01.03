@@ -11,8 +11,11 @@ class PostViewModel : ViewModel() {
     fun deletePost(postId: Int) {
         viewModelScope.launch {
             try {
-                RetrofitClient.postService.deletePost(postId)
-                Log.d("PostViewModel", "Пост с ID $postId успешно удален")
+                val deleted = RetrofitClient.postService.deletePost(postId)
+                Log.d("PostViewModel", "Пост с ID ${deleted.id} успешно удален")
+                Log.d("PostViewModel", "isDeleted: ${deleted.isDeleted}")
+                Log.d("PostViewModel", "deleted: ${deleted.deletedOn}")
+
             } catch (ex: Exception) {
                 Log.e("PostViewModel", "Ошибка при удалении поста $postId: ${ex.message}")
             }

@@ -4,27 +4,37 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pr01.data.RetrofitClient
+import com.example.pr01.data.model.Hair
 import com.example.pr01.data.model.User
 import kotlinx.coroutines.launch
 
 class UserViewModel : ViewModel() {
 
-    fun editUser(userToSend: User) {
+    fun loadAndEditUser(id: Int) {
         viewModelScope.launch {
             try {
-                val updatedUser = RetrofitClient.userService.updateUser(
-                    id = userToSend.id ?: 0,
-                    user = userToSend
+                val originalUser = RetrofitClient.userService.getUser(id)
+                Log.d("UserViewModel", "Получен: ${originalUser.id} ${originalUser.firstName} ${originalUser.lastName} ${originalUser.age} ${originalUser.hair}")
+
+                val updatedUser = originalUser.copy(
+                    firstName = "Ирина",
+                    lastName = "Воронова",
+                    age = 29,
+                    hair = Hair(
+                        color = "темные",
+                        type = "кудрявые"
+                    )
                 )
+                val response = RetrofitClient.userService.updateUser(originalUser.id, updatedUser)
 
-                Log.d("UserViewModel", "ID: ${updatedUser.id}")
-                Log.d("UserViewModel", "Имя: ${updatedUser.firstName}")
-                Log.d("UserViewModel", "Фамилия: ${updatedUser.lastName}")
-                Log.d("UserViewModel", "Возраст: ${updatedUser.age}")
-                Log.d("UserViewModel", "Волосы - Цвет: ${updatedUser.hair.color}, Тип: ${updatedUser.hair.type}")
-
+                Log.d("UserViewModel", "Пользователь успешно обновлен:")
+                Log.d("UserViewModel", "Новое имя: ${response.firstName}")
+                Log.d("UserViewModel", "Новое фамилия: ${response.lastName}")
+                Log.d("UserViewModel", "Новый возраст: ${response.age}")
+                Log.d("UserViewModel", "Новый цвет волос: ${response.hair.color}")
+                Log.d("UserViewModel", "Новый тип волос: ${response.hair.type}")
             } catch (ex: Exception) {
-                Log.d("UserViewModel", "Ошибка при редактировании: ${ex.message}")
+                Log.e("UserViewModel", "Ошибка в цепочке получения-изменения: ${ex.message}")
             }
         }
     }

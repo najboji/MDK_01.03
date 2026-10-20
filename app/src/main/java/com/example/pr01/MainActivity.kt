@@ -5,10 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import com.example.pr01.data.model.Hair
 import com.example.pr01.data.model.Recipe
-import com.example.pr01.data.model.RecipeResponse
 import com.example.pr01.data.model.User
 import com.example.pr01.ui.viewModel.PostViewModel
-import com.example.pr01.ui.viewModel.ProductViewModel
 import com.example.pr01.ui.viewModel.RecipeViewModel
 import com.example.pr01.ui.viewModel.UserViewModel
 
@@ -45,23 +43,13 @@ class MainActivity : ComponentActivity() {
 
 //          Практическая 16
 
-//        val viewModel = UserViewModel()
-//        val userForEdit = User(
-//            id = 15,
-//            firstName = "Ирина",
-//            lastName = "Воронова",
-//            age = 29,
-//            hair = Hair(
-//                color = "темные",
-//                type = "кудрявые"
-//            )
-//        )
-//        viewModel.editUser(userForEdit)
+//        val userViewModel: UserViewModel by viewModels()
+//        userViewModel.loadAndEditUser(15)
 
 //        Практическая 17
 
-//        val postViewModel: PostViewModel by viewModels()
-//        val postIdToDelete = 30
-//        postViewModel.deletePost(postIdToDelete)
+        val postViewModel: PostViewModel by viewModels()
+        val postIdToDelete = 30
+        postViewModel.deletePost(postIdToDelete)
     }
 }
