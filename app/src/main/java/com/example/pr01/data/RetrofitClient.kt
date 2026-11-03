@@ -3,6 +3,7 @@ package com.example.pr01.data
 import com.example.pr01.data.service.PostService
 import com.example.pr01.data.service.ProductService
 import com.example.pr01.data.service.RecipeService
+import com.example.pr01.data.service.TodoService
 import com.example.pr01.data.service.UserService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -26,9 +27,19 @@ object RetrofitClient {
         .addInterceptor(loggingInterceptor)
         .build()
 
+    val client = OkHttpClient.Builder()
+        .addInterceptor(loggingInterceptor)
+        .build()
+
     private val retrofit: Retrofit = Retrofit.Builder()
         .baseUrl("https://dummyjson.com/")
         .client(httpClient)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+
+    private val swagger: Retrofit = Retrofit.Builder()
+        .baseUrl("http://10.207.106.59:8090/api/collections/")
+        .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
@@ -40,4 +51,6 @@ object RetrofitClient {
     val userService: UserService = retrofit.create(UserService::class.java)
     //    Практическая 17
     val postService: PostService = retrofit.create(PostService::class.java)
+    //    Практическая 18
+    val todoService: TodoService = swagger.create(TodoService::class.java)
 }
