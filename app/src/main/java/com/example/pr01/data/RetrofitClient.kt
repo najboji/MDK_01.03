@@ -1,5 +1,6 @@
 package com.example.pr01.data
 
+import com.example.pr01.data.service.AuthService
 import com.example.pr01.data.service.PostService
 import com.example.pr01.data.service.ProductService
 import com.example.pr01.data.service.RecipeService
@@ -52,5 +53,6 @@ object RetrofitClient {
     //    Практическая 17
     val postService: PostService = retrofit.create(PostService::class.java)
     //    Практическая 18
+    val authService: AuthService = swagger.create(AuthService::class.java)
     val todoService: TodoService = swagger.create(TodoService::class.java)
 }

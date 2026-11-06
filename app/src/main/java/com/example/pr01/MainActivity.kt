@@ -3,12 +3,17 @@ package com.example.pr01
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.pr01.data.model.AuthRequest
 import com.example.pr01.data.model.Hair
 import com.example.pr01.data.model.Recipe
 import com.example.pr01.data.model.User
+import com.example.pr01.ui.viewModel.LoginViewModel
 import com.example.pr01.ui.viewModel.PostViewModel
 import com.example.pr01.ui.viewModel.RecipeViewModel
 import com.example.pr01.ui.viewModel.TodoViewModel
+import com.example.pr01.ui.viewModel.TokenManager
 import com.example.pr01.ui.viewModel.UserViewModel
 
 class MainActivity : ComponentActivity() {
@@ -54,8 +59,29 @@ class MainActivity : ComponentActivity() {
 //        postViewModel.deletePost(postIdToDelete)
 
         //        Практическая 18
+        val tokenManager = TokenManager(applicationContext)
 
-        val todoViewModel: TodoViewModel by viewModels()
-        todoViewModel.fetchTodos()
+        val todoViewModel: TodoViewModel by viewModels() {
+            viewModelFactory {
+                initializer {
+                    TodoViewModel(tokenManager)
+                }
+            }
+        }
+
+        val loginViewModel: LoginViewModel by viewModels() {
+            viewModelFactory {
+                initializer {
+                    LoginViewModel(tokenManager, todoViewModel)
+                }
+
+            }
+        }
+
+        val authRequest = AuthRequest(
+            identity = "dimasmirnov0207@gmail.com",
+            password = "987654321"
+        )
+        loginViewModel.login(authRequest)
     }
 }

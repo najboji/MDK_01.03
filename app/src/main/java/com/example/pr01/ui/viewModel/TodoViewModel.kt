@@ -4,31 +4,21 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pr01.data.RetrofitClient
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-class TodoViewModel : ViewModel() {
+class TodoViewModel(val tokenManager: TokenManager): ViewModel() {
 
-    fun fetchTodos() {
+    fun getTodos() {
         viewModelScope.launch {
             try {
-                val response = RetrofitClient.todoService.getTodos()
+                val token = tokenManager.tokenFlow().first()
+                token?.let{
+                    val todoResponse = RetrofitClient.todoService.getTodos(token)
 
-                if (response.isSuccessful) {
-                    val body = response.body()
-                    if (body?.items != null) {
-                        Log.d("TodoViewModel", "Пагинация: страница ${body.page}, всего ${body.totalItems} задач")
-                        for (todo in body.items) {
-                            Log.d("TodoViewModel",
-                                "ID: ${todo.id}\n" +
-                                        "Задача: ${todo.todo}\n" +
-                                        "Статус: ${if (todo.completed == true) "Выполнено" else "Не выполнено"}\n" +
-                                        "Создано: ${todo.created}")
-                        }
-                    } else {
-                        Log.d("TodoViewModel", "Список задач пуст.")
+                    for (item in todoResponse.items.orEmpty()) {
+                        Log.e("LoginViewModel","id: ${item.id}, todo: ${item.todo}, completed: ${item.completed}, created: ${item.created}, updated: ${item.updated}")
                     }
-                } else {
-                    Log.e("TodoViewModel", "Ошибка сервера: ${response.code()} - ${response.message()}")
                 }
             } catch (ex: Exception) {
                 Log.e("TodoViewModel", "Сетевая ошибка: ${ex.message}")
