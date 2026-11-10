@@ -17,11 +17,10 @@ class LoginViewModel(val tokenManager: TokenManager,
             try{
                 val authResponse = RetrofitClient.authService.authWithPassword(authRequest)
 
-                authResponse.token?.let {
-                    tokenManager.saveToken(it)
+                    tokenManager.saveToken(authResponse.token)
 
                     todoViewModel.getTodos()
-                }
+
             }
             catch (e: Exception){
                 Log.e("LoginViewModel",e.message.toString())
