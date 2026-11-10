@@ -17,8 +17,14 @@ class TodoViewModel(val tokenManager: TokenManager): ViewModel() {
                     val todoResponse = RetrofitClient.todoService.getTodos(token)
 
                     for (item in todoResponse.items.orEmpty()) {
-                        Log.e("LoginViewModel","id: ${item.id}, todo: ${item.todo}, completed: ${item.completed}, created: ${item.created}, updated: ${item.updated}")
+                        Log.d("TodoViewModel",
+                            "id: ${item.id}, " +
+                                    "\ntodo: ${item.todo}," +
+                                    "\ncompleted: ${item.completed}," +
+                                    "\ncreated: ${item.created}," +
+                                    "\nupdated: ${item.updated}")
                     }
+
                 }
             } catch (ex: Exception) {
                 Log.e("TodoViewModel", "Сетевая ошибка: ${ex.message}")
